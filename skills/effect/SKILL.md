@@ -52,10 +52,11 @@ If a task spans several branches, read all matching files before editing.
 ## Quick Selection Guide
 
 - Ordinary object record: `Schema.Struct(...)` plus same-name `interface`.
-- Scalar ID/value object: schema-backed local `Newtype` helper when available, otherwise constrained branded schema.
+- Scalar ID/value object: constrained branded schema.
 - Internal workflow decision or state: `Data.TaggedEnum<...>` plus `Data.taggedEnum<...>()` constructors and exhaustive `$match`.
 - Reusable boundary-crossing tagged variant: `Schema.TaggedStruct(...)` plus same-name `interface`.
 - Boundary-crossing tagged union: `Schema.TaggedUnion(...)` with `.cases`, `.guards`, and `.match`.
+- External/custom discriminator such as `type`: `Schema.Struct({ type: Schema.tag("variant"), ... })` plus `Schema.toTaggedUnion("type")` when union helpers are needed.
 - Expected typed failure: `Schema.TaggedErrorClass`.
 - Unknown boundary payload: `Schema.decodeUnknownEffect(...)`.
 - Service boundary: `Context.Service<Service, Interface>()(...)` plus `Layer.effect(...)` plus `Service.of(...)`.
@@ -88,7 +89,7 @@ If a task spans several branches, read all matching files before editing.
 ## Do Nots
 
 - Do not use `as any`, non-null assertions, or unchecked casts to silence Effect typing problems.
-- Do not introduce `Schema.Class` or `Schema.TaggedClass` as default app data-modeling patterns, and do not use object-oriented `Schema.Opaque` to implement primitive newtypes.
+- Do not introduce `Schema.Class` or `Schema.TaggedClass` as default app data-modeling patterns.
 - Do not hand-roll `_tag` error classes when `Schema.TaggedErrorClass` fits.
 - Do not use cause-level recovery when typed-error recovery is enough.
 - Do not use `Layer.mergeAll(...)` or `provideMerge(...)` as blind make-it-compile tools.
