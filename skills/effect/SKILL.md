@@ -36,7 +36,7 @@ If a task spans several branches, read all matching files before editing.
 ## Core Defaults
 
 - Compose workflows with `Effect.gen(function* () { ... })`.
-- Name reusable operations with `Effect.fn("Domain.operation")`.
+- Define public service methods and non-trivial internal service methods with `Effect.fn("Domain.operation")`.
 - Use `Effect.fnUntraced` only for internal helpers where stack-frame/span metadata is intentionally unnecessary.
 - Prefer `Context.Service` for application services when the codebase has not standardized on another current service-tag style.
 - Build real service implementations with `Layer.effect(Service, Effect.gen(...))` and return `Service.of({ ... })`.
@@ -59,7 +59,7 @@ If a task spans several branches, read all matching files before editing.
 - Expected typed failure: `Schema.TaggedErrorClass`.
 - Unknown boundary payload: `Schema.decodeUnknownEffect(...)`.
 - Service boundary: `Context.Service<Service, Interface>()(...)` plus `Layer.effect(...)` plus `Service.of(...)`.
-- Reusable workflow: `Effect.fn("Domain.operation")`.
+- Public or non-trivial internal service method: `Effect.fn("Domain.operation")`.
 - Runtime configuration: `Config` recipes read in layers; override with `ConfigProvider` in tests.
 - Event source: `Stream` consumed with `Stream.runForEach(...)` and forked with `Effect.forkScoped` in the owning layer.
 - Queue-backed event source: `Queue` for the producer boundary, `Stream.fromQueue(...)` for consumers.
