@@ -40,7 +40,7 @@ Do not use streams just to loop forever. For one repeated effect with no emitted
 - Multiple inner streams concurrently: `Stream.flatMap(fn, { concurrency })`.
 - Keep only matching values: `Stream.filter(...)` / `Stream.filterEffect(...)`.
 - Stateful transformation: `Stream.mapAccum(...)` / `Stream.mapAccumEffect(...)`.
-- Paginated pull-to-pages: prefer `Stream.paginate(...)` over hand-rolled loops. There is no separate `Stream.paginateEffect`.
+- Paginated pull-to-pages: use `Stream.paginate(...)`; its step function is effectful and emits a batch per step.
 
 ## Consumption Chooser
 
